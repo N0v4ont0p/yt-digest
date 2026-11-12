@@ -5,7 +5,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 python3
 WORKDIR /app
 # yt-dlp-exec skips its own binary download; the MCP uses ./bin/yt-dlp from the working dir
 ENV YOUTUBE_DL_SKIP_DOWNLOAD=true
-RUN npm install -g supergateway@4.2.2 @mrsknetwork/ytmcp@1.0.14 \
+ENV YOUTUBE_DL_SKIP_PYTHON_CHECK=1
+RUN npm install -g --ignore-scripts supergateway@4.2.2 @mrsknetwork/ytmcp@1.0.14 \
  && mkdir -p bin && ln -s "$(command -v yt-dlp)" bin/yt-dlp
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
